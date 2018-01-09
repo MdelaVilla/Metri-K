@@ -5,6 +5,11 @@
  */
 package view;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author manueldelavilla
@@ -14,6 +19,8 @@ public class jfrmPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form jfrmPrincipal
      */
+    File fichero = null;
+    
     public jfrmPrincipal() {
         initComponents();
     }
@@ -27,6 +34,8 @@ public class jfrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jlblFiletext = new javax.swing.JLabel();
+        jlblFile = new javax.swing.JLabel();
         jmnuBarra = new javax.swing.JMenuBar();
         jmnuProyecto = new javax.swing.JMenu();
         jmnuPAbrir = new javax.swing.JMenuItem();
@@ -39,9 +48,7 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         jmnuCC = new javax.swing.JMenuItem();
         jmnuMetriOO = new javax.swing.JMenu();
         jmnuMM_WMC = new javax.swing.JMenuItem();
-        jmnuMM_DIT = new javax.swing.JMenuItem();
         jmnuMM_CBO = new javax.swing.JMenuItem();
-        jmnuMM_RFC = new javax.swing.JMenuItem();
         jmnuMM_LCOM = new javax.swing.JMenuItem();
         jmnuMetriMood = new javax.swing.JMenu();
         jmnuMM_MHF = new javax.swing.JMenuItem();
@@ -54,16 +61,35 @@ public class jfrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jlblFiletext.setText("Fichero a tratar:");
+
+        jlblFile.setText(" ");
+
         jmnuProyecto.setText("Proyecto");
 
         jmnuPAbrir.setText("Abrir");
+        jmnuPAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnuPAbrirActionPerformed(evt);
+            }
+        });
         jmnuProyecto.add(jmnuPAbrir);
 
         jmnuPCerrar.setText("Cerrar");
+        jmnuPCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnuPCerrarActionPerformed(evt);
+            }
+        });
         jmnuProyecto.add(jmnuPCerrar);
         jmnuProyecto.add(jSeparator1);
 
         jmnuPSalir.setText("Salir");
+        jmnuPSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnuPSalirActionPerformed(evt);
+            }
+        });
         jmnuProyecto.add(jmnuPSalir);
 
         jmnuBarra.add(jmnuProyecto);
@@ -77,35 +103,43 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         jmnuMetriClasicas.add(jmnuMHalstead);
 
         jmnuCC.setText("Complejidad ciclomática");
+        jmnuCC.setEnabled(false);
+        jmnuCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnuCCActionPerformed(evt);
+            }
+        });
         jmnuMetriClasicas.add(jmnuCC);
 
         jmnuBarra.add(jmnuMetriClasicas);
 
         jmnuMetriOO.setText("Moose");
 
-        jmnuMM_WMC.setText("WMC");
+        jmnuMM_WMC.setText("WMC, DIT y NOC");
+        jmnuMM_WMC.setEnabled(false);
+        jmnuMM_WMC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnuMM_WMCActionPerformed(evt);
+            }
+        });
         jmnuMetriOO.add(jmnuMM_WMC);
 
-        jmnuMM_DIT.setText("DIT y NOC");
-        jmnuMM_DIT.addActionListener(new java.awt.event.ActionListener() {
+        jmnuMM_CBO.setText("CBO y RFC");
+        jmnuMM_CBO.setEnabled(false);
+        jmnuMM_CBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnuMM_DITActionPerformed(evt);
+                jmnuMM_CBOActionPerformed(evt);
             }
         });
-        jmnuMetriOO.add(jmnuMM_DIT);
-
-        jmnuMM_CBO.setText("CBO");
         jmnuMetriOO.add(jmnuMM_CBO);
 
-        jmnuMM_RFC.setText("RFC");
-        jmnuMM_RFC.addActionListener(new java.awt.event.ActionListener() {
+        jmnuMM_LCOM.setText("LCOM");
+        jmnuMM_LCOM.setEnabled(false);
+        jmnuMM_LCOM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnuMM_RFCActionPerformed(evt);
+                jmnuMM_LCOMActionPerformed(evt);
             }
         });
-        jmnuMetriOO.add(jmnuMM_RFC);
-
-        jmnuMM_LCOM.setText("LCOM");
         jmnuMetriOO.add(jmnuMM_LCOM);
 
         jmnuBarra.add(jmnuMetriOO);
@@ -147,27 +181,86 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 572, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jlblFiletext)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlblFile)
+                .addContainerGap(424, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(256, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlblFiletext)
+                    .addComponent(jlblFile))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmnuMM_RFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_RFCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmnuMM_RFCActionPerformed
-
     private void jmnuMM_MIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_MIFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmnuMM_MIFActionPerformed
 
-    private void jmnuMM_DITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_DITActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmnuMM_DITActionPerformed
+    private void jmnuPAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuPAbrirActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Java, c++ y c", "java", "cpp", "c");
+        fileChooser.setFileFilter(filter);
+
+        int seleccion = fileChooser.showOpenDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION)
+        {
+            File fichero = fileChooser.getSelectedFile();
+            //Fichero disponible para procesamiento posterior
+            jlblFile.setText(fichero.getName());
+        }       
+        
+        jmnuMM_WMC.setEnabled(true);
+        jmnuCC.setEnabled(true);
+        jmnuMM_LCOM.setEnabled(true);
+        jmnuMM_CBO.setEnabled(true);
+    }//GEN-LAST:event_jmnuPAbrirActionPerformed
+
+    private void jmnuPCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuPCerrarActionPerformed
+        fichero = null;
+        jlblFile.setText(" ");
+        jmnuMM_WMC.setEnabled(false);
+        jmnuCC.setEnabled(false);
+        jmnuMM_LCOM.setEnabled(false);
+        jmnuMM_CBO.setEnabled(false);
+
+    }//GEN-LAST:event_jmnuPCerrarActionPerformed
+
+    private void jmnuPSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuPSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jmnuPSalirActionPerformed
+
+    private void jmnuCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuCCActionPerformed
+        JFrame jf= new jfrmFJBlandon(fichero);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jmnuCCActionPerformed
+
+    private void jmnuMM_CBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_CBOActionPerformed
+        JFrame jf= new jfrmAntonioRuiz(fichero);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jmnuMM_CBOActionPerformed
+
+    private void jmnuMM_WMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_WMCActionPerformed
+        JFrame jf= new jfrmPergentino(fichero);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jmnuMM_WMCActionPerformed
+
+    private void jmnuMM_LCOMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_LCOMActionPerformed
+        JFrame jf= new jfrmMarcianoNze(fichero);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jmnuMM_LCOMActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,19 +299,19 @@ public class jfrmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JLabel jlblFile;
+    private javax.swing.JLabel jlblFiletext;
     private javax.swing.JMenuBar jmnuBarra;
     private javax.swing.JMenuItem jmnuCC;
     private javax.swing.JMenuItem jmnuMHalstead;
     private javax.swing.JMenuItem jmnuMLOC;
     private javax.swing.JMenuItem jmnuMM_CBO;
     private javax.swing.JMenuItem jmnuMM_CIC;
-    private javax.swing.JMenuItem jmnuMM_DIT;
     private javax.swing.JMenuItem jmnuMM_Herencia;
     private javax.swing.JMenuItem jmnuMM_LCOM;
     private javax.swing.JMenuItem jmnuMM_MHF;
     private javax.swing.JMenuItem jmnuMM_MIF;
     private javax.swing.JMenuItem jmnuMM_PF;
-    private javax.swing.JMenuItem jmnuMM_RFC;
     private javax.swing.JMenuItem jmnuMM_Tamano;
     private javax.swing.JMenuItem jmnuMM_WMC;
     private javax.swing.JMenu jmnuMetriClasicas;
