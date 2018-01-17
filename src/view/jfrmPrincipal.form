@@ -70,6 +70,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmnuMM_WMC">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+W"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="WMC, DIT y NOC"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>

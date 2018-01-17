@@ -22,7 +22,19 @@ public class jfrmPergentino extends javax.swing.JFrame {
         initComponents();
         f_a_tratar=f;
     }
-
+    
+    //métodos a implementar
+    private void WMC(){
+        //calculamos los métodos ponderados por clase 
+    }
+    
+    private void DIT(){
+        //calculamos la profundidad del arbol de herencia de una clase
+    }
+    
+    private void NOC(){
+        //calculamos el número de hijos de una clase
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,27 +44,39 @@ public class jfrmPergentino extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jpPrincipal = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MOOSE 1 (WMC, DIT Y NOC)");
 
-        jLabel1.setText("MOOSE 1 -WMC, DIT y NOC- Pergentino L. Edjama");
+        jpPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MOOSE 1 (WMC, DIT Y NOC) Pergentino L. Edjang Nchama", 0, 0, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        javax.swing.GroupLayout jpPrincipalLayout = new javax.swing.GroupLayout(jpPrincipal);
+        jpPrincipal.setLayout(jpPrincipalLayout);
+        jpPrincipalLayout.setHorizontalGroup(
+            jpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 606, Short.MAX_VALUE)
+        );
+        jpPrincipalLayout.setVerticalGroup(
+            jpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 258, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(39, 39, 39))
+                .addContainerGap()
+                .addComponent(jpPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addComponent(jpPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -61,6 +85,6 @@ public class jfrmPergentino extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jpPrincipal;
     // End of variables declaration//GEN-END:variables
 }

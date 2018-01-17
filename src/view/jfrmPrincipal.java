@@ -115,6 +115,7 @@ public class jfrmPrincipal extends javax.swing.JFrame {
 
         jmnuMetriOO.setText("Moose");
 
+        jmnuMM_WMC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         jmnuMM_WMC.setText("WMC, DIT y NOC");
         jmnuMM_WMC.setEnabled(false);
         jmnuMM_WMC.addActionListener(new java.awt.event.ActionListener() {
@@ -250,17 +251,17 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jmnuMM_CBOActionPerformed
 
-    private void jmnuMM_WMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_WMCActionPerformed
-        JFrame jf= new jfrmPergentino(fichero);
-        jf.setVisible(true);
-        jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_jmnuMM_WMCActionPerformed
-
     private void jmnuMM_LCOMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_LCOMActionPerformed
         JFrame jf= new jfrmMarcianoNze(fichero);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jmnuMM_LCOMActionPerformed
+
+    private void jmnuMM_WMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_WMCActionPerformed
+        JFrame jf= new jfrmPergentino(fichero);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jmnuMM_WMCActionPerformed
 
     /**
      * @param args the command line arguments
