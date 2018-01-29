@@ -6,6 +6,9 @@
 package view;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -213,7 +216,7 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         int seleccion = fileChooser.showOpenDialog(this);
         if (seleccion == JFileChooser.APPROVE_OPTION)
         {
-            File fichero = fileChooser.getSelectedFile();
+            fichero = fileChooser.getSelectedFile();
             //Fichero disponible para procesamiento posterior
             jlblFile.setText(fichero.getName());
         }       
@@ -245,9 +248,13 @@ public class jfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnuCCActionPerformed
 
     private void jmnuMM_CBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_CBOActionPerformed
-        JFrame jf= new jfrmAntonioRuiz(fichero);
-        jf.setVisible(true);
-        jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
+        try {
+            JFrame jf= new jfrmAntonioRuiz(fichero);
+            jf.setVisible(true);
+            jf.setDefaultCloseOperation(jf.DISPOSE_ON_CLOSE);
+        } catch (IOException ex) {
+            Logger.getLogger(jfrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jmnuMM_CBOActionPerformed
 
     private void jmnuMM_WMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_WMCActionPerformed
