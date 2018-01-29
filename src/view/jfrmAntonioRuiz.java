@@ -5,7 +5,12 @@
  */
 package view;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 
@@ -19,10 +24,52 @@ public class jfrmAntonioRuiz extends javax.swing.JFrame {
      * Creates new form jfrmAntonioRuiz
      */
     File f_a_tratar=null;
+    ArrayList<String> classesnames = new ArrayList();
+    ArrayList<Integer> couplingcounters=new ArrayList();
     
-    public jfrmAntonioRuiz(File f) {
+    /**
+     *
+     * @param f
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public jfrmAntonioRuiz(File f) throws FileNotFoundException, IOException {
         initComponents();
         f_a_tratar=f;
+        BufferedReader br = new BufferedReader(new FileReader (f_a_tratar));
+        String linea;
+        int counter=0;
+        File folder = new File(f_a_tratar.getParent());
+        File[] fdNames= folder.listFiles(); //files and directories names; 
+        
+         //names of the classes to search for
+        for (int i = 0; i < fdNames.length; i++) {
+            //check directory/file and same name
+            if(fdNames[i].isFile()) 
+                if(!fdNames[i].getName().equals(f_a_tratar.getName())){
+                    classesnames.add(fdNames[i].getName().replaceFirst("[.][^.]+$", ""));
+                    couplingcounters.add(0);
+                }
+        }
+        
+        
+        int a=0;
+        while((linea=br.readLine())!=null){ //read line of the file
+            for (int i = 0; i < classesnames.size(); i++)
+                if(linea.contains(" "+classesnames.get(i)+" ")) //check if one class name on line
+                    couplingcounters.add(i, (couplingcounters.get(i))+1);
+        }
+        for (int i = 0; i < couplingcounters.size(); i++) {
+           counter+=couplingcounters.get(i); 
+        }
+        //Show metric results on screen
+        String res="";
+        for (int i = 0; i < classesnames.size(); i++) {
+            res=res.concat(classesnames.get(i)+"\n");
+        }
+        jTPCBOValue.setText(String.valueOf(counter));
+        jTAResults.setText(res);
+        
     }
 
     /**
@@ -35,26 +82,71 @@ public class jfrmAntonioRuiz extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTAResults = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTPCBOValue = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("MOOSE 2 - CBO, RFC - Antonio Ruiz");
 
+        jTAResults.setColumns(20);
+        jTAResults.setRows(5);
+        jScrollPane1.setViewportView(jTAResults);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setText("CBO");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Value:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Classes:");
+
+        jScrollPane2.setViewportView(jTPCBOValue);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGap(144, 144, 144))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -64,5 +156,12 @@ public class jfrmAntonioRuiz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTAResults;
+    private javax.swing.JTextPane jTPCBOValue;
     // End of variables declaration//GEN-END:variables
 }
