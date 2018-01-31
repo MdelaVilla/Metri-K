@@ -5,7 +5,13 @@
  */
 package view;
 
+import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -16,12 +22,31 @@ public class jfrmFJBlandon extends javax.swing.JFrame {
     /**
      * Creates new form jfrmFJBlandon
      */
-    
-    File f_a_tratar=null;
-    
+    File f_a_tratar = null;
+
     public jfrmFJBlandon(File f) {
         initComponents();
-        f_a_tratar=f;
+        this.setLocationRelativeTo(null);
+        this.jPanel_Menu.setBackground(new Color(255, 255, 255, 180));
+        f_a_tratar = f;
+
+        String cadena = f_a_tratar.getAbsolutePath();
+        String leer = "", texto = "";
+        //Carga el contenido del fichero en el textarea
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(cadena));
+
+            while ((leer = in.readLine()) != null) {
+                texto = texto + leer + "\n";
+//                this.jTextArea_Codigo.setText(texto);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        this.jTextArea_Codigo.setText(texto);
+        this.jTextArea_Codigo.setCaretPosition(0);
+//        System.out.println("Posicion: " + this.jTextArea_Codigo.getCaretPosition());
     }
 
     /**
@@ -33,35 +58,142 @@ public class jfrmFJBlandon extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_Cabeza = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel_Menu = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel_Resul = new javax.swing.JPanel();
+        jPanel_Body = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea_Codigo = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Complejidad Ciclomática");
+        setBackground(new java.awt.Color(240, 240, 240));
+        setMaximumSize(null);
+        setMinimumSize(null);
+        setName("frame_CC"); // NOI18N
+        setResizable(false);
+        setSize(new java.awt.Dimension(945, 570));
 
+        jPanel_Cabeza.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Cabeza.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel_Cabeza.setMaximumSize(new java.awt.Dimension(945, 40));
+        jPanel_Cabeza.setMinimumSize(new java.awt.Dimension(945, 40));
+        jPanel_Cabeza.setPreferredSize(new java.awt.Dimension(945, 40));
+        jPanel_Cabeza.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Complejidad Ciclomática - FJ Blandón");
+        jPanel_Cabeza.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 945, 40));
+
+        jPanel_Menu.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Menu.setMaximumSize(new java.awt.Dimension(110, 519));
+        jPanel_Menu.setMinimumSize(new java.awt.Dimension(110, 519));
+        jPanel_Menu.setName("Menu"); // NOI18N
+        jPanel_Menu.setPreferredSize(new java.awt.Dimension(110, 519));
+
+        jButton1.setText("jButton1");
+
+        javax.swing.GroupLayout jPanel_MenuLayout = new javax.swing.GroupLayout(jPanel_Menu);
+        jPanel_Menu.setLayout(jPanel_MenuLayout);
+        jPanel_MenuLayout.setHorizontalGroup(
+            jPanel_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_MenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        jPanel_MenuLayout.setVerticalGroup(
+            jPanel_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_MenuLayout.createSequentialGroup()
+                .addGap(197, 197, 197)
+                .addComponent(jButton1)
+                .addContainerGap(297, Short.MAX_VALUE))
+        );
+
+        jPanel_Resul.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Resul.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel_Resul.setMaximumSize(new java.awt.Dimension(270, 519));
+        jPanel_Resul.setMinimumSize(new java.awt.Dimension(270, 519));
+        jPanel_Resul.setPreferredSize(new java.awt.Dimension(270, 519));
+
+        javax.swing.GroupLayout jPanel_ResulLayout = new javax.swing.GroupLayout(jPanel_Resul);
+        jPanel_Resul.setLayout(jPanel_ResulLayout);
+        jPanel_ResulLayout.setHorizontalGroup(
+            jPanel_ResulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 268, Short.MAX_VALUE)
+        );
+        jPanel_ResulLayout.setVerticalGroup(
+            jPanel_ResulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 517, Short.MAX_VALUE)
+        );
+
+        jPanel_Body.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Body.setMaximumSize(new java.awt.Dimension(565, 519));
+        jPanel_Body.setMinimumSize(new java.awt.Dimension(565, 519));
+        jPanel_Body.setPreferredSize(new java.awt.Dimension(565, 519));
+
+        jTextArea_Codigo.setEditable(false);
+        jTextArea_Codigo.setBackground(new java.awt.Color(255, 255, 255));
+        jTextArea_Codigo.setColumns(20);
+        jTextArea_Codigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextArea_Codigo.setRows(5);
+        jTextArea_Codigo.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(jTextArea_Codigo);
+
+        javax.swing.GroupLayout jPanel_BodyLayout = new javax.swing.GroupLayout(jPanel_Body);
+        jPanel_Body.setLayout(jPanel_BodyLayout);
+        jPanel_BodyLayout.setHorizontalGroup(
+            jPanel_BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_BodyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel_BodyLayout.setVerticalGroup(
+            jPanel_BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_BodyLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_Cabeza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(jLabel1)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addComponent(jPanel_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel_Resul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel_Body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addComponent(jPanel_Cabeza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel_Resul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel_Body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel_Body;
+    private javax.swing.JPanel jPanel_Cabeza;
+    private javax.swing.JPanel jPanel_Menu;
+    private javax.swing.JPanel jPanel_Resul;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea_Codigo;
     // End of variables declaration//GEN-END:variables
 }
