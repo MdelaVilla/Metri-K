@@ -210,11 +210,11 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Java, c++ y c", "java", "cpp", "c");
         fileChooser.setFileFilter(filter);
-        
+
         int seleccion = fileChooser.showOpenDialog(this);
         if (seleccion == JFileChooser.APPROVE_OPTION)
         {
-            fichero = fileChooser.getSelectedFile();
+            File fichero = fileChooser.getSelectedFile();
             //Fichero disponible para procesamiento posterior
             jlblFile.setText(fichero.getName());
         }       
@@ -258,8 +258,7 @@ public class jfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnuMM_LCOMActionPerformed
 
     private void jmnuMM_WMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_WMCActionPerformed
-        jfrmPergentino jf= new jfrmPergentino(fichero);
-        jf.cargarTabla(); //método para cargar los resultados en la tabla
+        JFrame jf= new jfrmPergentino(fichero);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jmnuMM_WMCActionPerformed
