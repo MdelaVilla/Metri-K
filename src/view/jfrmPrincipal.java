@@ -214,7 +214,7 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         int seleccion = fileChooser.showOpenDialog(this);
         if (seleccion == JFileChooser.APPROVE_OPTION)
         {
-            File fichero = fileChooser.getSelectedFile();
+            fichero = fileChooser.getSelectedFile();
             //Fichero disponible para procesamiento posterior
             jlblFile.setText(fichero.getName());
         }       
