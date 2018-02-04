@@ -258,7 +258,8 @@ public class jfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmnuMM_LCOMActionPerformed
 
     private void jmnuMM_WMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuMM_WMCActionPerformed
-        JFrame jf= new jfrmPergentino(fichero);
+        jfrmPergentino jf= new jfrmPergentino(fichero);
+        jf.cargarTabla(); //carga de la tabla
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jmnuMM_WMCActionPerformed
