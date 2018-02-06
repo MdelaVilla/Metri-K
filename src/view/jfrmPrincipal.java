@@ -213,7 +213,8 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         int seleccion = fileChooser.showOpenDialog(this);
         if (seleccion == JFileChooser.APPROVE_OPTION)
         {
-            File fichero = fileChooser.getSelectedFile();
+            //File fichero = fileChooser.getSelectedFile(); //Errata, lo he comentado por doble declacion y eso nunca funciona
+             fichero = fileChooser.getSelectedFile();
             //Fichero disponible para procesamiento posterior
             jlblFile.setText(fichero.getName());
         }       

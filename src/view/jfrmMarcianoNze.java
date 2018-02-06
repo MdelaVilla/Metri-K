@@ -5,7 +5,15 @@
  */
 package view;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -16,13 +24,87 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     /**
      * Creates new form jfrmMarcianoNze
      */
-    File f_a_tratar=null;
-    
+    File f_a_tratar = null;
+    private ArrayList<String> variables = new ArrayList<>();
+    ArrayList<String> textos = new ArrayList<>();
+    Pattern patron;
+    Matcher m;
+    private String cadena;
+
     public jfrmMarcianoNze(File f) {
         initComponents();
-        f_a_tratar=f;
+        f_a_tratar = f;
+
     }
 
+    public void leerEscribeAtributo(String linea) {
+        int j = 0, cuenta = 0;
+        String[] l = linea.split(" |,");
+        for (String o : l) {
+            if (!o.equals("")) {
+                if (!o.equals("final") && !o.equals("static") && !o.equals(";") && !o.equals("=")
+                        && !o.equals("new") && !o.equals("null") && !o.equals("private") && !o.equals("public")
+                        && !o.equals("ArrayList<>();") && !o.equals("int") && !o.equals("float") && !o.equals("String")
+                        && !o.equals("char") && !o.equals("List") && !o.equals("LinkedList") && !o.equals("Iterador")
+                        && !o.equals("{") && !o.equals("}") && !o.equals("<") && !o.equals(">") && !o.equals("FileReader")
+                        && !o.equals("{") && !o.equals("BufferedReader") && !o.equals("FileWriter") && !o.equals("PrintWriter")) {
+                    if (!variables.contains(o)) {
+                        variables.add(o);
+                    }
+                    System.out.println("Estoy dentro... " + o);
+                }
+            }
+            cuenta++;
+        }
+    }
+
+    public void evaluarCohesion_LCOM() throws IOException {
+        int atributos = 0;
+        FileReader f = new FileReader(f_a_tratar);
+        BufferedReader b = new BufferedReader(f);
+        String linea = "";
+        int contador = 1, y = 0;
+        while ((cadena = b.readLine()) != null) {
+            String regla3 = "class";
+            patron = Pattern.compile(regla3);
+            // if(!cadena.equals(""))
+            Matcher m1 = patron.matcher(cadena);
+            // System.out.println("cadena impresa.." + cadena);
+            if (!m1.find()) {
+                System.out.println("No es una clase");
+            } else if (y == 0) {
+                System.out.println("Es una clase " + cadena);
+                while (!(cadena = b.readLine()).contains("public")) {
+                    if (!cadena.startsWith("//") && !cadena.startsWith("/*") && !cadena.startsWith("{") && !cadena.startsWith("}")) {
+                        // System.out.println("Encontrando atributos de la clase");
+                        leerEscribeAtributo(cadena);
+                        y = 1;
+                    }
+                }
+            }
+            if (y != 0) {
+                String r1 = "public|private";
+                patron = Pattern.compile(r1);
+                m = patron.matcher(cadena);
+                if (m.find()) {
+                    if (!linea.equals("")) {
+                        textos.add(linea);
+                    }
+                    linea = "";
+                }
+                if (!m.find()) {
+                    linea += cadena + "\n";
+                }
+            }
+        }
+        if (!linea.equals("")) {
+            textos.add(linea);
+        }
+        b.close();
+        // resultadoCohesion_LCOM();
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,10 +115,154 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jButtonInfos = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaMostrarDatos = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonEstadistica = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaEsdistica = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
+        jButtonExplicacion = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextAreaExplicacion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("MOOSE 3 - LCOM - Marciano Nze Nzeme");
+
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jButtonInfos.setBackground(new java.awt.Color(0, 0, 51));
+        jButtonInfos.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        jButtonInfos.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonInfos.setText("Consultar Atributos");
+        jButtonInfos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInfosActionPerformed(evt);
+            }
+        });
+
+        jTextAreaMostrarDatos.setBackground(new java.awt.Color(0, 51, 51));
+        jTextAreaMostrarDatos.setColumns(20);
+        jTextAreaMostrarDatos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTextAreaMostrarDatos.setForeground(new java.awt.Color(255, 255, 255));
+        jTextAreaMostrarDatos.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaMostrarDatos);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(jButtonInfos))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonInfos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Información", jPanel1);
+
+        jButtonEstadistica.setBackground(new java.awt.Color(0, 0, 51));
+        jButtonEstadistica.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        jButtonEstadistica.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEstadistica.setText("Consultar estadístoca");
+        jButtonEstadistica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEstadisticaActionPerformed(evt);
+            }
+        });
+
+        jTextAreaEsdistica.setBackground(new java.awt.Color(0, 51, 51));
+        jTextAreaEsdistica.setColumns(20);
+        jTextAreaEsdistica.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTextAreaEsdistica.setForeground(new java.awt.Color(255, 255, 255));
+        jTextAreaEsdistica.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaEsdistica);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jButtonEstadistica)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jButtonEstadistica, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Estadística de atr/métodos", jPanel2);
+
+        jButtonExplicacion.setBackground(new java.awt.Color(0, 0, 51));
+        jButtonExplicacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonExplicacion.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonExplicacion.setText("Consultar explicación");
+        jButtonExplicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExplicacionActionPerformed(evt);
+            }
+        });
+
+        jTextAreaExplicacion.setBackground(new java.awt.Color(0, 102, 102));
+        jTextAreaExplicacion.setColumns(20);
+        jTextAreaExplicacion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTextAreaExplicacion.setForeground(new java.awt.Color(255, 255, 255));
+        jTextAreaExplicacion.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaExplicacion);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(jButtonExplicacion))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonExplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Explicación detallada por cohesión", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -45,22 +271,125 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addComponent(jLabel1)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void jButtonExplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExplicacionActionPerformed
+         try {
+            evaluarCohesion_LCOM();
+            jTextAreaExplicacion.setText("EXPLICACION DEL GRADO DE COHESIÓN DE LA CLASE:\n");
+            for (String variable : variables) {
+                jTextAreaExplicacion.setText(jTextAreaExplicacion.getText() + "\nCOHESIÓN RESPECTO AL ATRIBUTO  <" +variable +"> :");
+            int numerometodos = 0;
+            // Pattern patron1 = Pattern.compile(variable);
+            String r1 = "[ ]" + variable + "+|[.]" + variable + "+ |[=]" + variable + "+|[(]" + variable + "+|[)]" + variable + "+";
+            Pattern patron1 = Pattern.compile(r1);
+            for (int i = 0; i < textos.size(); i++) {
+
+                Matcher m1 = patron1.matcher(textos.get(i));
+                if (m1.find()) {
+                    //System.out.println("El metodo usa el atributo " + variable);
+                    numerometodos++;
+                }
+            }
+            if(textos.size() > numerometodos)
+            {
+                jTextAreaExplicacion.setText(jTextAreaExplicacion.getText()+ "\n\tEl atributo " + variable+" se utiliza en "
+                        + " " +numerometodos+" métodos,\n\t menor que numero de métodos-->"+textos.size()+"-->baja cohesión");
+            }
+           // System.out.println("El atributo " + variable + " es usado por " + numerometodos + " metodos");
+           
+        }
+         jTextAreaExplicacion.setText(jTextAreaExplicacion.getText()+
+                 "\n\nEs mejor que los atributos se usan todos los métodos de la clase,"
+                 + "\n para que el software sea de mejor y mucho más estable y fácil de"
+                 + "\nser escalable. Si los atributos no se usan en todos los métodos eso "
+                 + "\nnos da entender que se debería modular mejor la programación. Un mejor"
+                 + "\n desarrollo sofware siempre se consigue, entre otas, con una alta COHESIÓN."
+                 + "\na Diferencia del grado del acopla miento entre objetos en el desarrollo"
+                 + "\nde software, a bajo acoplamiento mejor sofware ");
+                   
+        } catch (IOException ex) {
+            
+        }
+    }//GEN-LAST:event_jButtonExplicacionActionPerformed
+
+    private void jButtonEstadisticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadisticaActionPerformed
+        try {
+            evaluarCohesion_LCOM();
+            jTextAreaEsdistica.setText(jTextAreaEsdistica.getText()+" \n"
+                    + "\nLOS DATOS ESTADISTICOS DEL ESTUDIO REALIZADO. ");
+            for (String variable : variables) {
+                jTextAreaEsdistica.setText(jTextAreaEsdistica.getText() + "\nEstadística del atribuo  <" +variable +">  es:");
+            int numerometodos = 0;
+            // Pattern patron1 = Pattern.compile(variable);
+            String r1 = "[ ]" + variable + "+|[.]" + variable + "+ |[=]" + variable + "+|[(]" + variable + "+|[)]" + variable + "+";
+            Pattern patron1 = Pattern.compile(r1);
+            for (int i = 0; i < textos.size(); i++) {
+
+                Matcher m1 = patron1.matcher(textos.get(i));
+                if (m1.find()) {
+                    //System.out.println("El metodo usa el atributo " + variable);
+                    numerometodos++;
+                }
+            }
+           // System.out.println("El atributo " + variable + " es usado por " + numerometodos + " metodos");
+           jTextAreaEsdistica.setText(jTextAreaEsdistica.getText() +"\n\t El atributo  <" + variable + ">  se utilisa en " + numerometodos + " métodos");
+        }
+        } catch (IOException ex) {
+            Logger.getLogger(jfrmMarcianoNze.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonEstadisticaActionPerformed
+
+    private void jButtonInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInfosActionPerformed
+        try {
+            // TODO add your handling code here:
+            evaluarCohesion_LCOM();
+            jTextAreaMostrarDatos.setText(jTextAreaMostrarDatos.getText() +" "
+                    + "AQUÍ SE DESCRIBE EL NUMERO DE ATRIBUTOS Y MÉTODOS ENCONTRADOS.\n");
+            jTextAreaMostrarDatos.setText(jTextAreaMostrarDatos.getText() +"\n Tenemos un total de  " + variables.size() + " atributos en la clase y, \n\n Tnemos un total de " + textos.size() + " metodos en la clase\n\n");
+            
+            
+            jTextAreaMostrarDatos.setText(jTextAreaMostrarDatos.getText() +" \n "
+                    + "Este caso concreto, al hacer un estudio de la clase o fichero"
+                    + "\npasado por paramtro,la información sobre los atribuso y métodos "
+                    + "\ntal como se ha descrito en las lineas anteriores.");
+        } catch (IOException ex) {
+            Logger.getLogger(jfrmMarcianoNze.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonInfosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEstadistica;
+    private javax.swing.JButton jButtonExplicacion;
+    private javax.swing.JButton jButtonInfos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextAreaEsdistica;
+    private javax.swing.JTextArea jTextAreaExplicacion;
+    private javax.swing.JTextArea jTextAreaMostrarDatos;
     // End of variables declaration//GEN-END:variables
 }
