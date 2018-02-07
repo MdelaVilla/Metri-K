@@ -5,6 +5,7 @@
  */
 package view;
 
+//import expresion_regular.jfrmMarcianoNze;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+//el marcys okomo de CMEPPS-->17/01/2018
 /**
  *
  * @author manueldelavilla
@@ -22,7 +23,7 @@ public class jfrmPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form jfrmPrincipal
      */
-    File fichero = null;
+    File fichero = null; //este fichero se ha creado dos veces, he tenido que borrarlo en la segunda referencia por que da fallos
     
     public jfrmPrincipal() {
         initComponents();
@@ -216,7 +217,11 @@ public class jfrmPrincipal extends javax.swing.JFrame {
         int seleccion = fileChooser.showOpenDialog(this);
         if (seleccion == JFileChooser.APPROVE_OPTION)
         {
+
             fichero = fileChooser.getSelectedFile();
+            //File fichero = fileChooser.getSelectedFile(); //Errata, lo he comentado por doble declacion y eso nunca funciona
+             fichero = fileChooser.getSelectedFile();
+
             //Fichero disponible para procesamiento posterior
             jlblFile.setText(fichero.getName());
         }       
