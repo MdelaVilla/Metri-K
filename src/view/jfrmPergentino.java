@@ -108,8 +108,8 @@ public class jfrmPergentino extends javax.swing.JFrame {
 
         //Llamamos primero a los métodos que realizan las métricas
         WMC();
-        DIT();
-        NOC();
+        DIT(); 
+        NOC(); 
 
         Object[] fila = new Object[4];
         for (Clase item : lista) {
