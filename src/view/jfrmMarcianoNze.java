@@ -33,7 +33,7 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     Matcher m;
     private String cadena;
 
-    public jfrmMarcianoNze(File f) {
+    public jfrmMarcianoNze(File f) {    //parte de marcys okomo, el marcys
         initComponents();
         f_a_tratar = f;
 
