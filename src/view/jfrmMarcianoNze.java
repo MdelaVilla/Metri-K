@@ -24,20 +24,19 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     /**
      * Creates new form jfrmMarcianoNze
      */
-    File f_a_tratar = null; 
+    File f_a_tratar = null;
 
-    private ArrayList<String> variables;//= new ArrayList<>();
-    ArrayList<String> textos;// = new ArrayList<>();
+    private ArrayList<String> variables;
+    ArrayList<String> textos;
 
-  
-     Pattern patron ;
+    Pattern patron;
     Matcher m;
     private String cadena;
 
     public jfrmMarcianoNze(File f) {
         initComponents();
         f_a_tratar = f;
-    
+
     }
 
     public void leerEscribeAtributo(String linea) {
@@ -74,18 +73,18 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
         while ((cadena = b.readLine()) != null) {
             String regla3 = "class";
             patron = Pattern.compile(regla3);
-            // if(!cadena.equals(""))
+
             Matcher m1 = patron.matcher(cadena);
-            // System.out.println("cadena impresa.." + cadena);
+
             if (!m1.find()) {
                 System.out.println("No es una clase");
             } else if (y == 0) {
                 System.out.println("Es una clase " + cadena);
                 while (!(cadena = b.readLine()).contains("public")) {
                     if (!cadena.startsWith("//") && !cadena.startsWith("/*") && !cadena.startsWith("{") && !cadena.startsWith("}")) {
-                        // System.out.println("Encontrando atributos de la clase");
+
                         leerEscribeAtributo(cadena);
-                        y = 1;
+                        y += 1;
                     }
                 }
             }
@@ -108,10 +107,8 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
             textos.add(linea);
         }
         b.close();
-        // resultadoCohesion_LCOM();
 
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -308,7 +305,7 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
             for (String variable : variables) {
                 jTextAreaExplicacion.setText(jTextAreaExplicacion.getText() + "\nCOHESIÓN RESPECTO AL ATRIBUTO  <" + variable + "> :");
                 int numerometodos = 0;
-                // Pattern patron1 = Pattern.compile(variable);
+
                 String r1 = "[ ]" + variable + "+|[.]" + variable + "+ |[=]" + variable + "+|[(]" + variable + "+|[)]" + variable + "+"
                         + "|[)]" + variable + "|[-]" + variable + "+|[*]" + variable + "+|[/]" + variable + "+";
                 Pattern patron1 = Pattern.compile(r1);
@@ -316,7 +313,7 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
 
                     Matcher m1 = patron1.matcher(textos.get(i));
                     if (m1.find()) {
-                        //System.out.println("El metodo usa el atributo " + variable);
+
                         numerometodos++;
                     }
                 }
@@ -324,7 +321,6 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
                     jTextAreaExplicacion.setText(jTextAreaExplicacion.getText() + "\n\tEl atributo " + variable + " se utiliza en "
                             + " " + numerometodos + " métodos,\n\t menor que numero de métodos-->" + textos.size() + "-->baja cohesión");
                 }
-                // System.out.println("El atributo " + variable + " es usado por " + numerometodos + " metodos");
 
             }
             jTextAreaExplicacion.setText(jTextAreaExplicacion.getText()
@@ -341,13 +337,10 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonExplicacionActionPerformed
 
- 
-                                                     
-
 
     private void jButtonEstadisticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadisticaActionPerformed
 
-         try {
+        try {
             evaluarCohesion_LCOM();
             jTextAreaEsdistica.setText("");
             jTextAreaEsdistica.requestFocus();
@@ -357,18 +350,18 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
             for (String variable : variables) {
                 jTextAreaEsdistica.setText(jTextAreaEsdistica.getText() + "\nEstadística del atribuo  <" + variable + ">  es:");
                 int numerometodos = 0;
-                // Pattern patron1 = Pattern.compile(variable);
+
                 String r1 = "[ ]" + variable + "+|[.]" + variable + "+ |[=]" + variable + "+|[(]" + variable + "+|[)]" + variable + "+";
                 Pattern patron1 = Pattern.compile(r1);
                 for (int i = 0; i < textos.size(); i++) {
 
                     Matcher m1 = patron1.matcher(textos.get(i));
                     if (m1.find()) {
-                        //System.out.println("El metodo usa el atributo " + variable);
+
                         numerometodos++;
                     }
                 }
-                // System.out.println("El atributo " + variable + " es usado por " + numerometodos + " metodos");
+
                 jTextAreaEsdistica.setText(jTextAreaEsdistica.getText() + "\n\t El atributo  <" + variable + ">  se utilisa en " + numerometodos + " métodos");
                 numerometodos = 0;
             }
@@ -376,12 +369,12 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
             Logger.getLogger(jfrmMarcianoNze.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+
     }//GEN-LAST:event_jButtonEstadisticaActionPerformed
 
     private void jButtonInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInfosActionPerformed
         try {
-            // TODO add your handling code here:
+
             evaluarCohesion_LCOM();
             jTextAreaMostrarDatos.setText(jTextAreaMostrarDatos.getText() + " "
                     + "AQUÍ SE DESCRIBE EL NUMERO DE ATRIBUTOS Y MÉTODOS ENCONTRADOS.\n");
