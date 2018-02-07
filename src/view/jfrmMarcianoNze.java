@@ -24,8 +24,8 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     /**
      * Creates new form jfrmMarcianoNze
      */
-    File f_a_tratar = null;
-
+    File f_a_tratar = null; //repositorios
+    
     private ArrayList<String> variables;
     ArrayList<String> textos;
 
@@ -40,6 +40,7 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     }
 
     public void leerEscribeAtributo(String linea) {
+        System.out.println("Aqui es el metodo que detecta los atributos de una ´linea y los almacena en un array variables");
         int j = 0, cuenta = 0;
         String[] l = linea.split(" |,");
 
