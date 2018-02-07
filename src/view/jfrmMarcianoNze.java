@@ -25,22 +25,25 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
      * Creates new form jfrmMarcianoNze
      */
     File f_a_tratar = null;
+
     private ArrayList<String> variables;//= new ArrayList<>();
     ArrayList<String> textos;// = new ArrayList<>();
-    Pattern patron;
+
+  
+     Pattern patron ;
     Matcher m;
     private String cadena;
 
     public jfrmMarcianoNze(File f) {
         initComponents();
         f_a_tratar = f;
-
+    
     }
 
     public void leerEscribeAtributo(String linea) {
         int j = 0, cuenta = 0;
         String[] l = linea.split(" |,");
-        
+
         for (String o : l) {
             if (!o.equals("")) {
                 if (!o.equals("final") && !o.equals("static") && !o.equals(";") && !o.equals("=")
@@ -49,9 +52,9 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
                         && !o.equals("char") && !o.equals("List") && !o.equals("LinkedList") && !o.equals("Iterador")
                         && !o.equals("{") && !o.equals("}") && !o.equals("<") && !o.equals(">") && !o.equals("FileReader")
                         && !o.startsWith("-") && !o.equals("BufferedReader") && !o.equals("FileWriter") && !o.equals("PrintWriter")
-                        && !o.equals(".")&& !o.equals("null")&& !o.equals("{const ")&& !o.startsWith("\"")) {
+                        && !o.equals(".") && !o.equals("null") && !o.equals("{const ") && !o.startsWith("\"")) {
                     if (!variables.contains(o)) {
-                        variables.add(o); 
+                        variables.add(o);
                     }
                     System.out.println("Estoy dentro... " + o);
                 }
@@ -106,7 +109,9 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
         }
         b.close();
         // resultadoCohesion_LCOM();
+
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -294,6 +299,7 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonExplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExplicacionActionPerformed
+
         try {
             jTextAreaExplicacion.requestFocus();
             jTextAreaExplicacion.setText("");
@@ -335,12 +341,17 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonExplicacionActionPerformed
 
+ 
+                                                     
+
+
     private void jButtonEstadisticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadisticaActionPerformed
-        try {
+
+         try {
             evaluarCohesion_LCOM();
             jTextAreaEsdistica.setText("");
             jTextAreaEsdistica.requestFocus();
-           
+
             jTextAreaEsdistica.setText(jTextAreaEsdistica.getText() + " \n"
                     + "LOS DATOS ESTADISTICOS DEL ESTUDIO REALIZADO. ");
             for (String variable : variables) {
@@ -365,20 +376,17 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
             Logger.getLogger(jfrmMarcianoNze.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
+        
     }//GEN-LAST:event_jButtonEstadisticaActionPerformed
 
     private void jButtonInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInfosActionPerformed
         try {
-           
-            jTextAreaMostrarDatos.setText("");
-            jTextAreaMostrarDatos.requestFocus();
+            // TODO add your handling code here:
             evaluarCohesion_LCOM();
             jTextAreaMostrarDatos.setText(jTextAreaMostrarDatos.getText() + " "
                     + "AQUÍ SE DESCRIBE EL NUMERO DE ATRIBUTOS Y MÉTODOS ENCONTRADOS.\n");
             jTextAreaMostrarDatos.setText(jTextAreaMostrarDatos.getText() + "\n Tenemos un total de  " + variables.size() + " atributos en la clase y, \n\n Tnemos un total de " + textos.size() + " metodos en la clase\n\n");
 
-            //  variables.removeAll(variables);
             jTextAreaMostrarDatos.setText(jTextAreaMostrarDatos.getText() + " \n "
                     + "Este caso concreto, al hacer un estudio de la clase o fichero"
                     + "\npasado por paramtro,la información sobre los atribuso y métodos "
