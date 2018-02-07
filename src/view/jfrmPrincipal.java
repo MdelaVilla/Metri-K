@@ -23,7 +23,7 @@ public class jfrmPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form jfrmPrincipal
      */
-    File fichero = null;
+    File fichero = null; //este fichero se ha creado dos veces, he tenido que borrarlo en la segunda referencia por que da fallos
     
     public jfrmPrincipal() {
         initComponents();

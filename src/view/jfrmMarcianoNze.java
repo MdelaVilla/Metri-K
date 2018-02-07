@@ -24,7 +24,7 @@ public class jfrmMarcianoNze extends javax.swing.JFrame {
     /**
      * Creates new form jfrmMarcianoNze
      */
-    File f_a_tratar = null;
+    File f_a_tratar = null; 
 
     private ArrayList<String> variables;//= new ArrayList<>();
     ArrayList<String> textos;// = new ArrayList<>();
