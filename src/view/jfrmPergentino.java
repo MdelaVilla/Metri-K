@@ -96,12 +96,138 @@ public class jfrmPergentino extends javax.swing.JFrame {
 
     private void DIT() {
         //Calculamos la profundidad del arbol de herencia de una clase
+                FileReader fr = null;
+        BufferedReader br = null;
 
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            fr = new FileReader(f_a_tratar);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+                //Buscamos si hay alguna herencia
+                if (linea.contains("class") && linea.contains("extends") && linea.contains("{") ) {
+                    boolean enc = false;
+                    String[] tokens = linea.split(" ");
+                    for (int i = 0; i < tokens.length && !enc; i++) {
+                        if (tokens[i].equals("extends")) {
+                            //Buscamos la clase en la lista
+                            boolean encontrado = false;
+                            String hijo = tokens[i-1];
+                            String padre = tokens[i+1];
+                            int posHijo = -1;
+                            
+                            //Buscamos al hijo y le asignamos a su padre
+                            for (int j = 0; j < lista.size() && !encontrado; j++) {
+                                if( lista.get(j).getNombre().equals( hijo ) ){
+                                    lista.get(j).setPadre( padre );
+                                    System.out.println("Padre: " + padre + " E Hijo: " + hijo);
+                                    encontrado = true;
+                                    posHijo = j;
+                                }
+                            }
+                            
+                            //Buscamos al padre y le asignamos al hijo la profundidad del padre+1
+                            encontrado = false;
+                            for (int j = 0; j < lista.size() && !encontrado; j++) {
+                                if( lista.get(j).getNombre().equals( padre ) ){
+                                    int profPadre = lista.get(j).getProfundidad();
+                                    lista.get(posHijo).setProfundidad( profPadre + 1 );
+                                    encontrado = true;
+                                }
+                            }
+                            enc = true;
+                        }
+                        
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error DIT: " + e.getMessage());
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+                if (br != null) {
+                    br.close();
+                }
+            } catch (Exception e2) {
+                System.out.println("Error: " + e2.getMessage());
+            }
+        }
     }
 
     private void NOC() {
         //Calculamos el número de hijos de una clase
-        
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            fr = new FileReader(f_a_tratar);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+                //Ahora procedemos a tratar el fichero linea por linea dependiendo de nuestra necesidad
+                if (linea.contains("class") && linea.contains("{")) {
+                    boolean enc = false;
+                    String[] tokens = linea.split(" ");
+                    for (int i = 0; i < tokens.length && !enc; i++) {
+                        if (tokens[i].equals("class")) {
+                            int posClase = -1;
+                            boolean es = false;
+                            
+                            //Buscamos la posición de la clase en la lista
+                            for (int j = 0; j < lista.size() && !es; j++) {
+                                if( lista.get(j).getNombre().equals( tokens[i+1]) ){
+                                    es = true;
+                                    posClase = j;
+                                }
+                            }
+                            
+                            //Buscamos las clases que tienen a esta clase como padre, y le vamos incrementando el numero de hijos a la clase
+                            for (int j = 0; j < lista.size(); j++) {
+                                    
+                                if( lista.get(j).getPadre().equals( tokens[i+1] ) ){
+                                    lista.get(posClase).setHijos( lista.get(posClase).getHijos() + 1 );
+                                }
+                            }
+                            enc = true;
+                        }
+                    }
+                } 
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error NOC: " + e.getMessage());
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+                if (br != null) {
+                    br.close();
+                }
+            } catch (Exception e2) {
+                System.out.println("Error: " + e2.getMessage());
+            }
+        }
     }
 
     private void cargarTabla() {
